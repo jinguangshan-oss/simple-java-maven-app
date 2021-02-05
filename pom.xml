@@ -1,37 +1,98 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!--  <parent>-->
+<!--    <groupId>org.springframework.boot</groupId>-->
+<!--    <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--    <version>2.3.8.RELEASE</version>-->
+<!--  </parent>-->
+  <!-- 项目描述符版本 -->
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
+
+  <!-- 打包出来的可执行文档类型 -->
   <packaging>jar</packaging>
+
+  <!-- 本项目坐标 -->
+  <groupId>com.jgs.app</groupId>
+  <artifactId>simple-java-maven-app</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>my-app</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+
+  <!-- 用户项目属性定义 -->
+  <properties>
+    <spring-boot-maven-plugin.version>2.3.8.RELEASE</spring-boot-maven-plugin.version>
+  </properties>
+
+  <!-- 构建定义 -->
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
-        <!-- Build an executable JAR -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>repackage</id>
+            <phase>package</phase>
+            <!--     定义maven package生命周期的插件目标       -->
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.mycompany.app.App</mainClass>
-            </manifest>
-          </archive>
+          <!--    启动类      -->
+          <mainClass>${start-class}</mainClass>
+          <!--     spring-boot-devtools设置，开启静态资源热加载     -->
+          <addResources>true</addResources>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <!-- 依赖管理 -->
+  <dependencyManagement>
+    <dependencies>
+<!--      &lt;!&ndash; spring data 依赖管理 &ndash;&gt;-->
+<!--      <dependency>-->
+<!--        <groupId>org.springframework.data</groupId>-->
+<!--        <artifactId>spring-data-releasetrain</artifactId>-->
+<!--        <version>Neumann-SR5</version>-->
+<!--        <type>pom</type>-->
+<!--        <scope>import</scope>-->
+<!--      </dependency>-->
+      <!--   spring boot依赖管理   -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.3.8.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- 依赖 -->
+  <dependencies>
+    <!--  SpringBoot开发工具（支持热加载静态资源和代码） -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--  SpringBoot web启动器  -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>
