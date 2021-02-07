@@ -20,7 +20,7 @@ JENKINS_NODE_COOKIE=keepmealive
 echo "after modification:   BUILD_ID = ${BUILD_ID}  JENKINS_SERVER_COOKIE = ${JENKINS_NODE_COOKIE}"
 
 #后台jar包启动,并将日志输出到application.log 文件
-nohup java -Xms800m -Xmx800m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:MaxNewSize=512m -jar ./target/${NAME}-${VERSION}.jar 1>/var/lib/jenkins/workspace/application.log 2>&1 &
+nohup java -Xms256m -Xmx256m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:MaxNewSize=256m -jar ./target/${NAME}-${VERSION}.jar 1>/var/lib/jenkins/workspace/application.log 2>&1 &
 
 #打印启动成功日志
 echo "${NAME}-${VERSION}.jar start successful"
