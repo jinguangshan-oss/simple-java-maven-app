@@ -1,5 +1,6 @@
 package com.jgs.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jgs.uti.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +32,17 @@ public class HostController {
 
     @RequestMapping(path = "/host", method = RequestMethod.GET)
     String home() {
-        //答应请求头
-        StringBuffer sb = new StringBuffer();
+        //格式化请求头
+        Map map = new HashMap();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {// 判断是否还有下一个元素
             String key = headerNames.nextElement();// 获取headerNames集合中的请求头
             String value = request.getHeader(key);// 通过请求头得到请求内容
-            sb.append(key + ":" + value);
-            if(headerNames.hasMoreElements()){
-                sb.append("\r\n");
-            }
-
+            map.put(key,value);
         }
 //        return "hello" + WebUtils.getIP();
-        return  sb.toString();
+        return JSONObject.toJSONString(map);
     }
 
     @RequestMapping(path = "/host/aa", method = RequestMethod.GET)
