@@ -41,6 +41,7 @@ public class HostController {
             String value = request.getHeader(key);// 通过请求头得到请求内容
             map.put(key,value);
         }
+        map.put("remoteAddr",request.getRemoteAddr());
 //        return "hello" + WebUtils.getIP();
         return JSONObject.toJSONString(map);
     }
